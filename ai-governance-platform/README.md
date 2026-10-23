@@ -5,7 +5,7 @@ AI 교육·정책·관리를 하나로 묶은 통합 AI 거버넌스 솔루션�
 | 파일 | 내용 |
 |---|---|
 | [docs/saas-feasibility.md](docs/saas-feasibility.md) | 검토서 본문 |
-| [deck/index.html](deck/index.html) | 발표 자료 (24장, 1920×1080) |
+| [deck/index.html](deck/index.html) | 발표 자료 (25장, 1920×1080) |
 
 ## 발표 자료 보기
 
