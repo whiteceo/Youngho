@@ -9,6 +9,6 @@ AI 교육·정책·관리를 하나로 묶은 통합 AI 거버넌스 솔루션�
 
 ## 발표 자료 보기
 
-`deck/index.html`을 브라우저로 엽니다. 방향키·스페이스·클릭으로 넘기고, 주소 끝 `#번호`로 특정 장을 엽니다. 인쇄(PDF 저장) 시 한 장에 한 슬라이드씩 나옵니다. 글꼴은 Google Fonts(IBM Plex Sans KR, IBM Plex Mono, Noto Sans KR)에서 불러옵니다.
+`deck/index.html`을 브라우저로 엽니다. 방향키·스페이스·클릭으로 넘기고, 주소 끝 `#번호`로 특정 장을 엽니다. 인쇄(PDF 저장) 시 한 장에 한 슬라이드씩 나옵니다. 글꼴은 Google Fonts(IBM Plex Sans KR, IBM Plex Mono, Noto Sans KR, Noto Serif KR)에서 불러옵니다.
 
 이미지: Microsoft Fluent Emoji 3D (MIT 라이선스, `deck/img/LICENSE.txt`).
