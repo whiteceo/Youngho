@@ -17,9 +17,9 @@ def ytable(N):
           ('그중 사내 인력(기회비용)',[eok(2066*12,False)]*5),
           ('온보딩',[eok(y['onb'],False) for y in a['yr'][:5]]),
           ('연간 손익(사내 인력 포함)',[eok(y['op']) for y in a['yr'][:5]]),
-          ('누적 손익(사내 인력 포함, 출시 전 투자 2.57억 포함)',[eok(y['cum']) for y in a['yr'][:5]]),
+          ('누적 손익(사내 인력 포함, 출시 전 투자 '+f"{capex(P)/1e4:.2f}"+'억 포함)',[eok(y['cum']) for y in a['yr'][:5]]),
           ('연간 손익(현금 기준)',[eok(y['op']) for y in b['yr'][:5]]),
-          ('누적 손익(현금 기준, 출시 전 현금 0.71억 포함)',[eok(y['cum']) for y in b['yr'][:5]])]
+          ('누적 손익(현금 기준, 출시 전 현금 '+f"{capex(P,False)/1e4:.2f}"+'억 포함)',[eok(y['cum']) for y in b['yr'][:5]])]
     out="| | 1년차 | 2년차 | 3년차 | 4년차 | 5년차 |\n|---|---|---|---|---|---|\n"
     for k,v in rows: out+=f"| {k} | "+" | ".join(v)+" |\n"
     return out,a,b
@@ -27,7 +27,7 @@ def be(r): return f"{ymk(r['be'][0])} · {r['be'][1]}곳" if r['be'] else "10년
 def pay(r,dm): return ymk(r['pay']+dm) if r['pay'] else "출시 후 10년 안에 못 함"
 cases=[('기본 조건',{}),('해지율 매달 1%(1년 약 11%)',dict(churn=0.01)),('해지율 매달 3%(1년 약 31%)',dict(churn=0.03)),
 ('변동비 낮음(19만 원)',dict(var=19)),('변동비 높음(41만 원)',dict(var=41)),('ARPU 90만 원',dict(arpu=90)),('ARPU 65만 원(Lite가 많을 때)',dict(arpu=65)),('ARPU 45만 원(전부 Lite)',dict(arpu=45)),
-('PM을 경력자로 영입(월 475만 원)',dict(pm=475)),('개발 기간 11개월(겸직 전환 비용 반영)',dict(dev_months=11)),
+('PM 인건비 하단(월 500만 원)',dict(pm=500)),('PM 인건비 상단(월 730만 원)',dict(pm=730)),('개발 기간 11개월(겸직 전환 비용 반영)',dict(dev_months=11)),
 ('출시 1년 뒤 사내 투입을 월 1,100만 원으로 축소',dict(cut_after=12)),('사내 인력을 사내 인건비로 환산(월 1,250만 원)',dict(internal_rate=1250)),
 ('AI 코딩 도구 사용(개발 7개월, 도구 월 50만 원)',dict(dev_months=7,fixed_cash=P['fixed_cash']+50,once_cash=P['once_cash']+350)),
 ('사내 플랫폼 재활용, 재사용 100%(개발 7.5개월)',dict(dev_months=7.5)),
