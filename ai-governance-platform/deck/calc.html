@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 업무 플랫폼 손익 계산기</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+@font-face{font-family:'Spoqa Han Sans Neo';font-weight:400;src:url('fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2')}
+@font-face{font-family:'Spoqa Han Sans Neo';font-weight:500;src:url('fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2')}
+@font-face{font-family:'Spoqa Han Sans Neo';font-weight:700;src:url('fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2')}
+:root{
+  --bg:#F6F6F8;--card:#FFFFFF;--ink:#333236;--sub:#5A595D;--mute:#818084;--line:#E3E3E8;--field:#F6F6F8;
+  --vi:#6500C3;--vit:#760DDE;--vibg:#F3E6FD;--cash:#178F98;--casht:#137A82;--neg:#B4002B;--pos:#00693D;--grid:#EDEDF0;--zero:#ADAEB8;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15161D;--card:#1F2029;--ink:#ECECF1;--sub:#B4B5BA;--mute:#878990;--line:#33354A;--field:#2A2C38;
+  --vi:#B363FD;--vit:#C58BFF;--vibg:#2E2342;--cash:#3CC3CD;--casht:#5FD3DB;--neg:#FF6B7F;--pos:#4ACB8A;--grid:#2C2E3B;--zero:#5D5F6E;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#15161D;--card:#1F2029;--ink:#ECECF1;--sub:#B4B5BA;--mute:#878990;--line:#33354A;--field:#2A2C38;
+  --vi:#B363FD;--vit:#C58BFF;--vibg:#2E2342;--cash:#3CC3CD;--casht:#5FD3DB;--neg:#FF6B7F;--pos:#4ACB8A;--grid:#2C2E3B;--zero:#5D5F6E;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:'Spoqa Han Sans Neo','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;font-size:15px;line-height:1.5;word-break:keep-all;margin:0}
+.wrap{max-width:1440px;margin:0 auto;padding-block:24px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between;margin-bottom:16px}
+h1{font-size:24px;line-height:1.3;margin:0;text-wrap:balance}
+.lead{color:var(--sub);margin:4px 0 0}
+.presets{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--vi)}
+button.on{background:var(--vi);border-color:var(--vi);color:#fff}
+.grid{display:grid;grid-template-columns:400px minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:960px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border-radius:14px;padding:16px 20px}
+.inputs{display:flex;flex-direction:column;gap:12px}
+.group h2{font-size:14px;letter-spacing:.3px;color:var(--vit);margin:0 0 8px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:4px 12px;align-items:center;padding:4px 0}
+.row label{font-size:14px}
+.row small{grid-column:1 / 3;color:var(--mute);font-size:12.5px;margin-top:-2px}
+.row input[type=number]{width:100%;font:inherit;font-size:15px;text-align:right;background:var(--field);color:var(--ink);border:1px solid transparent;border-radius:8px;padding:5px 8px}
+.row input:focus{outline:2px solid var(--vi);outline-offset:0}
+.row input[type=range]{grid-column:1 / 3;width:100%;accent-color:var(--vi);margin:0}
+.seg{display:flex;gap:6px;margin:0 0 6px}
+.unit{color:var(--mute);font-size:12.5px}
+.out{display:flex;flex-direction:column;gap:16px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:640px){.kpis{grid-template-columns:minmax(0,1fr)}}
+.kpi h3{margin:0 0 6px;font-size:15px;display:flex;gap:8px;align-items:center}
+.dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+.big{font-size:30px;font-weight:700;line-height:1.25;font-variant-numeric:tabular-nums}
+.kv{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;margin-top:8px;font-size:14px}
+.kv span:nth-child(odd){color:var(--sub)}
+.kv span:nth-child(even){text-align:right;font-weight:500;font-variant-numeric:tabular-nums}
+.chart h3,.table h3{margin:0 0 8px;font-size:15px}
+.legend{display:flex;gap:18px;font-size:13px;color:var(--sub);margin-bottom:6px}
+.legend i{display:inline-block;width:20px;height:4px;border-radius:2px;vertical-align:middle;margin-right:6px}
+svg text{font-family:inherit}
+.tscroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;text-align:right;border-top:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{color:var(--sub);font-weight:500;border-top:none}
+tr.grp td{color:var(--vit);font-weight:700;padding-top:10px}
+tr.grp.c td{color:var(--casht)}
+.negv{color:var(--neg)} .posv{color:var(--pos)}
+.check{font-size:13.5px}
+.check table td{white-space:normal}
+.ok{color:var(--pos);font-weight:700} .ng{color:var(--neg);font-weight:700}
+.note{color:var(--mute);font-size:12.5px;margin:8px 0 0}
+body.embed .wrap{max-width:none;padding-block:8px}
+body.embed header .lead,body.embed .checkcard,body.embed .tablecard{display:none}
+body.embed .grid{grid-template-columns:330px minmax(0,1fr);gap:12px}
+body.embed .card{padding:10px 14px}
+body.embed .kpis{gap:12px}
+body.embed .inputs{max-height:calc(100vh - 56px);overflow-y:auto}
+body.embed .out{gap:12px}
+body.embed .kpi .kv{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto}
+body.embed .big{font-size:22px}
+body.embed .kv{font-size:13px;margin-top:4px}
+body.embed .presets button{padding:3px 10px;font-size:13px}
+body.embed .legend{margin-bottom:0}
+body.embed header h1,body.embed .chart h3{display:none}
+body.embed header{margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div>
+    <h1>AI 업무 플랫폼 손익 계산기</h1>
+    <p class="lead">「AI 업무 플랫폼 사업 타당성 검토」 5장 손익 모델. 단위 만 원, 월 단위로 출시 후 10년까지 계산한다. 입력을 바꾸면 바로 다시 계산된다.</p>
+  </div>
+  <div class="presets" id="presets"></div>
+</header>
+<div class="grid">
+  <div class="card inputs" id="inputs"></div>
+  <div class="out">
+    <div class="kpis">
+      <div class="card kpi"><h3><span class="dot" style="background:var(--vi)"></span>사내 인력 포함 기준</h3><div class="big" id="payI"></div><div class="kv" id="kvI"></div></div>
+      <div class="card kpi"><h3><span class="dot" style="background:var(--cash)"></span>현금 기준</h3><div class="big" id="payC"></div><div class="kv" id="kvC"></div></div>
+    </div>
+    <div class="card chart">
+      <h3>출시 후 누적 손익 (출시 전 투자 포함)</h3>
+      <div class="legend"><span><i style="background:var(--vi)"></i>사내 인력 포함</span><span><i style="background:var(--cash)"></i>현금 기준</span></div>
+      <div id="chart"></div>
+    </div>
+    <div class="card table tablecard"><h3>연도별 손익 (출시 후, 억 원)</h3><div class="tscroll" id="yt"></div></div>
+    <div class="card checkcard check"><h3 style="margin:0 0 8px;font-size:15px">검산: 문서 기본값 재현 (ARPU 80만 원)</h3><div class="tscroll" id="ck"></div>
+      <p class="note">사내 인력 포함 기준은 사내 개발·디자인 인력의 시간을 시장 인건비(KOSA 2026)로 환산해 넣은 기준, 현금 기준은 새로 나가는 돈만 넣은 기준이다. 착수 후 기간 = 출시 후 기간 + 개발 기간. 추정치이며 MSP 견적·LOI 결과가 나오면 바꿔 넣는다.</p></div>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+if(/[?&]embed/.test(location.search)){document.body.classList.add('embed');
+ document.addEventListener('keydown',function(e){var t=e.target.tagName,k=e.key,typing=(t==='INPUT'||t==='TEXTAREA');
+  var nx=k==='PageDown'||(!typing&&(k==='ArrowRight'||k===' ')),pv=k==='PageUp'||(!typing&&k==='ArrowLeft');
+  if((nx||pv)&&window.parent!==window){e.preventDefault();window.parent.postMessage({deck:nx?'next':'prev'},'*')}});}
+var DEF={arpuMode:'direct',arpu:80,lite:20,ent:3,pLite:45,pPro:82.5,pEnt:250,N:3,churn:2,var:29,onb:65,
+ DEV:775,UX:516,dev_fte:2.0,ux_fte:1.0,internal_rate:0,cut_after:0,cut_to:1100,dev_months:9,pm:360,once_cash:3881,fixed_cash:797.5,margin:10,years:4};
+var S=JSON.parse(JSON.stringify(DEF));
+var FIELDS=[
+ ['가격·고객',[
+  ['arpu','ARPU(고객 1곳당 평균 월 구독료)','만 원',45,150,1,'직접 입력 모드에서 쓰는 값. 4.2 요금제 비중 가정','direct'],
+  ['lite','Lite 비중','%',0,100,1,'','mix'],['ent','Enterprise 비중','%',0,30,1,'Pro 비중 = 100 − Lite − Enterprise','mix'],
+  ['pLite','Lite 가격','만 원',30,80,0.5,'','mix'],['pPro','Pro 가격','만 원',75,90,0.5,'75~90만 원, 기본은 중간값 82.5','mix'],['pEnt','Enterprise 가격','만 원',250,400,5,'','mix'],
+  ['N','매달 신규 고객 수','곳',1,6,1,'5.2, 보수적 기준 3곳'],
+  ['churn','월 해지율','%',0.5,4,0.1,'ChartMogul ARPA 500달러 초과 중앙값 2.2%'],
+  ['var','고객 1곳당 월 변동비','만 원',19,45,1,'3.10 OPEX 변동비, 19·29·41'],
+  ['onb','신규 1곳당 온보딩 비용','만 원',30,100,1,'3.7']]],
+ ['사내 인력(기회비용)',[
+  ['DEV','개발자 월 인건비','만 원',300,1000,5,'KOSA 2026 응용SW개발자 775. 실제 급여로 바꿔 넣을 수 있다'],
+  ['UX','UIX 월 인건비','만 원',250,800,5,'KOSA 2026 UI/UX디자이너 516'],
+  ['dev_fte','개발자 투입(명분)','명분',1,3,0.1,'4명 × 50% = 2.0'],
+  ['ux_fte','UIX 투입(명분)','명분',0.5,2,0.1,'2명 × 50% = 1.0'],
+  ['internal_rate','사내 인건비 월 합계 직접 입력','만 원',0,3000,10,'0이면 위 단가 × 투입으로 계산. 예: 1,250(실제 급여 가정)'],
+  ['cut_after','출시 후 사내 투입 축소 시점','개월',0,60,1,'0이면 미적용. 예: 12'],
+  ['cut_to','축소 후 사내 인력 월 비용','만 원',0,2500,10,'예: 1,100(초기 추정 수준)']]],
+ ['개발·고정비',[
+  ['dev_months','출시까지 개발 기간','개월',6,12,0.5,'3.10, 2.0명분 약 9개월'],
+  ['pm','PM 월 비용(현금)','만 원',320,520,5,'주니어 320~400(기본 360), 경력 475'],
+  ['once_cash','출시 전 일회성 현금','만 원',1500,8000,10,'설계 531 + MSP 구축 500 + 법률 300 + 보안 점검 550 + AI 교육 콘텐츠 2,000'],
+  ['fixed_cash','월 고정 현금 비용(PM 제외)','만 원',500,1500,2.5,'AWS 150 + MSP 150 + 마케팅 325 + 도구 45 + PC 10 + 보험 17.5 + 야간 대응 100']]],
+ ['목표(필요 ARPU 역산)',[
+  ['margin','출시 후 3년차 목표 영업이익률','%',0,30,1,'0 손익분기, 10 통상 SaaS, 20 더존비즈온 수준'],
+  ['years','목표 회수 기간(착수 후)','년',2,8,0.5,'6.1 권고: 경영진이 정한다']]]];
+var PRESETS=[['문서 기본값',{}],['매달 4곳',{N:4}],['사내 인건비 월 1,250',{internal_rate:1250}],['출시 1년 뒤 사내 투입 축소',{cut_after:12,cut_to:1100}],['ARPU 65만 원',{arpu:65}]];
+
+function arpuOf(s){if(s.arpuMode==='mix'){var pro=Math.max(0,100-s.lite-s.ent);return (s.pLite*s.lite+s.pPro*pro+s.pEnt*s.ent)/100}return s.arpu}
+function params(s,over){var p={DEV:s.DEV,UX:s.UX,dev_fte:s.dev_fte,ux_fte:s.ux_fte,dev_months:s.dev_months,pm:s.pm,once_cash:s.once_cash,fixed_cash:s.fixed_cash,
+ var:s.var,onb:s.onb,churn:s.churn/100,N:s.N,arpu:arpuOf(s),cut_after:s.cut_after,cut_to:s.cut_to,internal_rate:s.internal_rate};for(var k in over)p[k]=over[k];return p}
+// model_v6 port
+function im(p){return p.internal_rate?p.internal_rate:p.dev_fte*p.DEV+p.ux_fte*p.UX}
+function capex(p,incl){return p.once_cash+p.pm*p.dev_months+(incl?im(p)*p.dev_months:0)}
+function fixed(p,m,incl){var f=p.fixed_cash+p.pm;if(incl)f+=(p.cut_after&&m>p.cut_after)?p.cut_to:im(p);return f}
+function sim(p,incl,months){months=months||120;var n=0,cum=-capex(p,incl),be=null,pay=null,low=cum,yr=[],R=0,V=0,F=0,O=0,curve=[[0,cum]];
+ for(var m=1;m<=months;m++){n=n*(1-p.churn)+p.N;var rev=n*p.arpu,v=n*p.var,f=fixed(p,m,incl),o=p.N*p.onb,pr=rev-v-f-o;cum+=pr;low=Math.min(low,cum);R+=rev;V+=v;F+=f;O+=o;curve.push([m,cum]);
+  if(be===null&&pr>=0)be=[m,Math.round(n)];if(pay===null&&cum>=0)pay=m;
+  if(m%12===0){yr.push({n:Math.round(n),rev:R,var:V,fix:F,onb:O,op:R-V-F-O,cum:cum});R=V=F=O=0}}
+ return {be:be,pay:pay,pay_start:pay!==null?pay+p.dev_months:null,trough:low,yr:yr,curve:curve,capex:capex(p,incl),fixed:fixed(p,1,incl)}}
+function solve(p,cond,incl){var lo=20,hi=600;for(var i=0;i<40;i++){var mid=(lo+hi)/2,q=Object.assign({},p,{arpu:mid});if(cond(q,incl))hi=mid;else lo=mid}return hi}
+function arpuMargin(p,incl,mg){return solve(p,function(x,i){var y=sim(x,i).yr[2];return y.op>=mg*y.rev},incl)}
+function arpuPayback(p,incl,years){return solve(p,function(x,i){var s=sim(x,i);return s.pay!==null&&s.pay+x.dev_months<=years*12},incl)}
+
+function ym(m){if(m===null||m===undefined)return null;m=Math.round(m*10)/10;var y=Math.floor(m/12),mm=Math.round((m-y*12)*10)/10;
+ return y&&mm?y+'년 '+mm+'개월':(y?y+'년':mm+'개월')}
+function eok(v){var x=v/10000;if(Math.abs(x)<0.005)return '0.00억';return (x<0?'−':'+')+Math.abs(x).toFixed(2)+'억'}
+function man(v){v=Math.round(v);var e=Math.floor(v/10000),r=v%10000;return (e?e+'억 ':'')+(r?r.toLocaleString('ko-KR')+'만 ':'')+'원'}
+function req(v){return v>=599?'600만 원 넘음':Math.round(v)+'만 원'}
+
+// inputs UI
+var box=document.getElementById('inputs');
+FIELDS.forEach(function(g){var d=document.createElement('div');d.className='group';d.innerHTML='<h2>'+g[0]+'</h2>';
+ if(g[0]==='가격·고객'){var seg=document.createElement('div');seg.className='seg';seg.innerHTML='<button type="button" data-mode="direct">ARPU 직접 입력</button><button type="button" data-mode="mix">요금제 비중으로 계산</button>';d.appendChild(seg);
+  seg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;S.arpuMode=b.dataset.mode;sync();run()})}
+ g[1].forEach(function(f){var r=document.createElement('div');r.className='row';r.dataset.key=f[0];if(f[7])r.dataset.mode=f[7];
+  r.innerHTML='<label for="i_'+f[0]+'">'+f[1]+' <span class="unit">'+f[2]+'</span></label><input type="number" id="i_'+f[0]+'" step="'+f[5]+'" min="0">'+
+   '<input type="range" aria-label="'+f[1]+'" min="'+f[3]+'" max="'+f[4]+'" step="'+f[5]+'">'+(f[6]?'<small>'+f[6]+'</small>':'');
+  var num=r.querySelector('input[type=number]'),rng=r.querySelector('input[type=range]');
+  num.addEventListener('input',function(){var v=parseFloat(num.value);if(isNaN(v))return;S[f[0]]=v;rng.value=v;run()});
+  rng.addEventListener('input',function(){S[f[0]]=parseFloat(rng.value);num.value=rng.value;run()});
+  d.appendChild(r)});
+ box.appendChild(d)});
+var pbox=document.getElementById('presets');
+PRESETS.forEach(function(pr){var b=document.createElement('button');b.type='button';b.textContent=pr[0];b.addEventListener('click',function(){S=Object.assign(JSON.parse(JSON.stringify(DEF)),pr[1]);sync();run()});pbox.appendChild(b)});
+function sync(){FIELDS.forEach(function(g){g[1].forEach(function(f){var r=box.querySelector('[data-key="'+f[0]+'"]');r.querySelector('input[type=number]').value=S[f[0]];r.querySelector('input[type=range]').value=S[f[0]];
+  r.hidden=!!(f[7]&&f[7]!==S.arpuMode)})});
+ box.querySelectorAll('.seg button').forEach(function(b){b.classList.toggle('on',b.dataset.mode===S.arpuMode)})}
+
+function kv(el,rows){el.innerHTML=rows.map(function(r){return '<span>'+r[0]+'</span><span>'+r[1]+'</span>'}).join('')}
+function chart(sI,sC,devm){
+ var EMB=document.body.classList.contains('embed'),cw=document.getElementById('chart').clientWidth||880;var W=EMB?Math.round(cw):880,H=EMB?Math.max(140,Math.round(document.documentElement.clientHeight-document.getElementById('chart').getBoundingClientRect().top-30)):300,L=64,R=16,T=12,B=34,TM=120;
+ var vals=sI.curve.concat(sC.curve).map(function(c){return c[1]});var mx=Math.max.apply(null,vals),mn=Math.min.apply(null,vals);
+ var step=[10000,20000,50000,100000,200000,500000,1000000].find(function(s){return (mx-mn)/s<=7})||2000000;
+ var top=Math.ceil(mx/step)*step,bot=Math.floor(mn/step)*step;if(top===bot)top+=step;
+ var X=function(t){return L+t*(W-L-R)/TM},Y=function(v){return T+(top-v)/(top-bot)*(H-T-B)};
+ var g='';for(var v=bot;v<=top+1;v+=step){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var('+(v===0?'--zero':'--grid')+')" stroke-width="'+(v===0?1.6:1)+'"/>'+
+  '<text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="12" fill="var(--sub)">'+(v===0?'0':(v>0?'+':'−')+Math.abs(v/10000)+'억')+'</text>'}
+ for(var t=0;t<=TM;t+=12){g+='<line x1="'+X(t)+'" x2="'+X(t)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="var(--grid)"/><text x="'+X(t)+'" y="'+(H-B+18)+'" text-anchor="middle" font-size="12" fill="var(--sub)">'+(t?t/12+'년':'출시')+'</text>'}
+ function line(s,c){return '<polyline fill="none" stroke="var('+c+')" stroke-width="2.6" stroke-linejoin="round" points="'+s.curve.map(function(p){return X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)}).join(' ')+'"/>'+
+  (s.pay!==null?'<circle cx="'+X(s.pay)+'" cy="'+Y(0)+'" r="5.5" fill="var('+c+')" stroke="var(--card)" stroke-width="2"/>':'')}
+ document.getElementById('chart').innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="사내 인력 포함 기준과 현금 기준의 출시 후 10년 누적 손익">'+g+line(sC,'--cash')+line(sI,'--vi')+'</svg>'}
+function ytable(sI,sC){var yrs=[0,1,2,3,4,5,6,7,8,9];var h='<table><thead><tr><th></th>'+yrs.map(function(i){return '<th>'+(i+1)+'년차</th>'}).join('')+'</tr></thead><tbody>';
+ function row(lab,f,cls){return '<tr><td>'+lab+'</td>'+yrs.map(function(i){var v=f(i),c=cls?(String(v).charAt(0)==='−'?'negv':(String(v).charAt(0)==='+'?'posv':'')):'';return '<td class="'+c+'">'+v+'</td>'}).join('')+'</tr>'}
+ h+=row('연말 고객',function(i){return sI.yr[i].n+'곳'})+row('매출',function(i){return (sI.yr[i].rev/10000).toFixed(2)})+row('변동비',function(i){return (sI.yr[i].var/10000).toFixed(2)});
+ h+='<tr class="grp"><td colspan="11">사내 인력 포함</td></tr>'+row('고정비',function(i){return (sI.yr[i].fix/10000).toFixed(2)})+row('연간 손익',function(i){return eok(sI.yr[i].op).replace('억','')},1)+row('누적 손익',function(i){return eok(sI.yr[i].cum).replace('억','')},1);
+ h+='<tr class="grp c"><td colspan="11">현금 기준</td></tr>'+row('고정비',function(i){return (sC.yr[i].fix/10000).toFixed(2)})+row('연간 손익',function(i){return eok(sC.yr[i].op).replace('억','')},1)+row('누적 손익',function(i){return eok(sC.yr[i].cum).replace('억','')},1);
+ document.getElementById('yt').innerHTML=h+'</tbody></table>'}
+
+function run(){
+ var p=params(S),sI=sim(p,true),sC=sim(p,false),mg=S.margin/100;
+ document.getElementById('payI').textContent=sI.pay!==null?'착수 후 '+ym(sI.pay_start)+' 회수':'출시 후 10년 안에 못 함';
+ document.getElementById('payC').textContent=sC.pay!==null?'착수 후 '+ym(sC.pay_start)+' 회수':'출시 후 10년 안에 못 함';
+ [['kvI',sI,true],['kvC',sC,false]].forEach(function(a){var s=a[1];kv(document.getElementById(a[0]),[
+  ['ARPU',(Math.round(p.arpu*10)/10)+'만 원'],
+  ['월 흑자 전환(출시 후)',s.be?ym(s.be[0])+' · '+s.be[1]+'곳':'10년 안에 없음'],
+  ['투자 회수(출시 후)',s.pay!==null?ym(s.pay):'10년 안에 못 함'],
+  ['최대 누적 적자',(Math.abs(s.trough)/10000).toFixed(2)+'억 원'],
+  ['출시 전 투자',man(s.capex)],['월 고정비(출시 직후)',man(s.fixed)],
+  ['3년차 영업이익률 '+S.margin+'% 필요 ARPU',req(arpuMargin(p,a[2],mg))],
+  ['착수 후 '+S.years+'년 회수 필요 ARPU',req(arpuPayback(p,a[2],S.years))]]);
+  if(document.body.classList.contains('embed'))kv(document.getElementById(a[0]),[
+  ['월 흑자 전환',s.be?ym(s.be[0])+' · '+s.be[1]+'곳':'없음'],['최대 누적 적자',(Math.abs(s.trough)/10000).toFixed(2)+'억'],
+  ['이익률 '+S.margin+'% ARPU',req(arpuMargin(p,a[2],mg))],[S.years+'년 회수 ARPU',req(arpuPayback(p,a[2],S.years))]])});
+ chart(sI,sC,p.dev_months);ytable(sI,sC)}
+
+// self check against calculator-spec.md section 4
+function check(){var exp={3:[['2년 6개월 · 68곳','7년 1개월','6.92억',87,115],['10개월 · 27곳','2년 10개월','1.28억',54,61]],4:[['1년 9개월 · 69곳','5년 2개월','5.75억',74,95],['8개월 · 30곳','2년 4개월','1.16억',49,54]]};
+ var rows=[],allok=true;[3,4].forEach(function(N){[true,false].forEach(function(incl,k){var p=params(DEF,{N:N}),s=sim(p,incl),e=exp[N][k];
+  var got=[ym(s.be[0])+' · '+s.be[1]+'곳',ym(s.pay_start),(Math.abs(s.trough)/10000).toFixed(2)+'억',Math.round(arpuMargin(p,incl,0.1)),Math.round(arpuPayback(p,incl,4))];
+  var ok=got.every(function(g,i){return String(g)===String(e[i])});allok=allok&&ok;
+  rows.push('<tr><td>매달 '+N+'곳 · '+(incl?'사내 인력 포함':'현금 기준')+'</td>'+got.map(function(g,i){return '<td>'+g+(i>2?'만':'')+'</td>'}).join('')+'<td class="'+(ok?'ok':'ng')+'">'+(ok?'일치':'불일치')+'</td></tr>')})});
+ document.getElementById('ck').innerHTML='<table><thead><tr><th></th><th>월 흑자 전환</th><th>착수 후 회수</th><th>최대 누적 적자</th><th>이익률 10% ARPU</th><th>4년 회수 ARPU</th><th>명세 대비</th></tr></thead><tbody>'+rows.join('')+'</tbody></table>';
+ document.body.dataset.check=allok?'ok':'ng'}
+sync();run();check();
+window.__calc={sim:sim,params:params,DEF:DEF,arpuMargin:arpuMargin,arpuPayback:arpuPayback,ym:ym};
+})();
+</script>
+</body>
+</html>
