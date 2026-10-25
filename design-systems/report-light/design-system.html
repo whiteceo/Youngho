@@ -1,0 +1,75 @@
+<html><head><meta charset="utf-8"><title>발표 자료 디자인 시스템</title>
+<style>
+@font-face{font-family:R;src:url('fonts/SpoqaHanSansNeo-Regular.woff2')}
+@font-face{font-family:M;src:url('fonts/SpoqaHanSansNeo-Medium.woff2')}
+@font-face{font-family:B;src:url('fonts/SpoqaHanSansNeo-Bold.woff2')}
+:root{--ink:#191F28;--sub:#4E5968;--mute:#8B95A1;--line:#E5E8EB;--vi:#6500C3;--vibg:#F4EDFF;--vi10:#E9CCFF;--neg:#D6173A}
+*{box-sizing:border-box;margin:0}
+body{width:1920px;background:#fff;color:var(--ink);font-family:R,sans-serif;word-break:keep-all;padding:88px 120px 96px}
+.b{font-family:B}.m{font-family:M}
+.lab{font-family:B;font-size:20px;color:var(--vi)}
+h1{font-family:B;font-weight:400;font-size:52px;line-height:1.3;letter-spacing:-1px}
+.subt{font-size:28px;color:var(--sub);line-height:1.5}
+.hl{background:linear-gradient(transparent 56%,var(--vi10) 56%);padding:0 4px;margin:0 -4px}
+.why{font-size:20px;color:var(--sub);line-height:1.5}
+.why b{font-family:B;font-weight:400;color:var(--vi)}
+.sec{border-top:2px solid var(--ink);padding-top:24px;display:grid;grid-template-columns:320px 1fr;gap:0 48px}
+.sec>h3{font-family:B;font-weight:400;font-size:28px;line-height:1.4}
+.sec>h3 small{display:block;font-family:R;font-size:20px;color:var(--mute);margin-top:4px}
+.row{display:grid;grid-template-columns:480px 1fr;gap:0 40px;padding:14px 0;border-top:1px solid var(--line);align-items:baseline}
+.row:first-child{border-top:0;padding-top:0}
+.rule{font-size:22px;line-height:1.5}
+.rule b{font-family:B;font-weight:400}
+.sw{display:inline-block;width:28px;height:28px;border-radius:6px;vertical-align:-6px;margin-right:12px;border:1px solid rgba(0,0,0,.06)}
+.code{font-size:18px;color:var(--mute)}
+</style></head><body>
+<div style="display:flex;flex-direction:column;gap:48px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<p class="lab">디자인팀 · 발표 자료 44장 공통 규칙</p>
+<h1>목표는 장식이 아니라 <span class="hl">3초 안에 핵심 전달</span></h1>
+<p class="subt">제목만 넘겨 읽어도 결론이 이어지고, 각 장에서 눈이 가장 먼저 닿는 곳이 그 장의 핵심 숫자·판정이 되도록 설계</p>
+</div>
+
+<div class="sec"><h3>네 가지 원칙<small>여러 좋은 덱에서 뽑은 이유</small></h3><div>
+<div class="row"><p class="rule"><b>결론형 제목</b><br>제목 = 그 장의 결론 한 문장</p><p class="rule">컨설팅 보고서의 액션 타이틀 방식. 조건·근거는 회색 부제로 분리<br><span class="why"><b>왜</b> 바쁜 의사결정자는 제목만 훑음. 제목 44개만 이어 읽어도 보고서 요약이 되도록</span></p></div>
+<div class="row"><p class="rule"><b>한 장에 강조 1~2곳</b><br>나머지는 무채색</p><p class="rule">보라는 핵심 숫자·판정어·현재 위치에만(장식용 글자·아이콘에는 쓰지 않음). 나머지 글자는 검정·회색 단계로만 구분<br><span class="why"><b>왜</b> 모두 강조하면 아무것도 강조되지 않음. 보라가 드물수록 보라 = 핵심이라는 약속이 생김</span></p></div>
+<div class="row"><p class="rule"><b>잉크는 데이터에만</b><br>상자·세로선·장식 제거</p><p class="rule">표의 바깥 상자와 세로선, 차트의 세로 격자, 카드 테두리를 걷어냄. 남는 선은 위 굵은 선 1개와 행 구분선뿐<br><span class="why"><b>왜</b> 장식 선이 줄어든 만큼 숫자와 글자가 앞으로 나옴(데이터 잉크 비율, Tufte)</span></p></div>
+<div class="row"><p class="rule"><b>여백이 구조</b><br>상자 대신 간격으로 묶음</p><p class="rule">흰 바탕 위에 덩어리 사이 간격과 굵은 선 하나로 영역을 나눔. 색 바탕은 한 장에 하나(콜아웃)<br><span class="why"><b>왜</b> 상자가 많으면 화면이 무거워지고 시선이 흩어짐. 넓은 여백은 정돈·신뢰 인상(토스·Stripe·Linear 계열 화면)</span></p></div>
+</div></div>
+
+<div class="sec"><h3>글자 크기·굵기<small>7단계, 굵기 3종</small></h3><div>
+<div class="row"><p class="b" style="font-size:52px;line-height:1.2;letter-spacing:-1px">52 Bold 제목</p><p class="rule">그 장의 결론. 판정어는 <span class="hl b">형광펜</span>, 핵심 숫자는 <span class="b" style="color:var(--vi)">보라 글자</span><br><span class="why"><b>왜</b> 회의실 뒤에서도 읽히는 크기. 판정(말)과 숫자(값)의 강조 방식을 달리해 무엇이 결론인지 즉시 구분</span></p></div>
+<div class="row"><p style="font-size:28px;color:var(--sub)">28 Regular 회색 부제</p><p class="rule">결론의 조건·근거 한 줄<br><span class="why"><b>왜</b> 제목과 크기·색을 한 번에 두 단계 낮춰, 결론과 근거가 섞여 보이지 않게</span></p></div>
+<div class="row"><p style="font-size:26px">26 Regular 요약 본문</p><p class="rule">요약 장처럼 문장이 주인공인 장의 본문</p></div>
+<div class="row"><p style="font-size:24px">24 Regular · <span class="m">Medium</span> 표·카드</p><p class="rule">표 안 글자, 첫 열(항목명)만 Medium<br><span class="why"><b>왜</b> 표는 제목보다 두 단계 작아 제목과 경쟁하지 않음. 첫 열 Medium으로 행 찾기 쉬움</span></p></div>
+<div class="row"><p style="font-size:22px;color:var(--sub)">22 Regular 회색 설명</p><p class="rule">하단 1층: 기본 조건, 계산 방법</p></div>
+<div class="row"><p class="m" style="font-size:20px;color:var(--mute)">20 Medium 연회색 길잡이</p><p class="rule">표 머리, 차트 축, 장 이름 라벨<br><span class="why"><b>왜</b> 길잡이는 읽을 대상이 아니라 위치 표시. 흐리게 두어야 내용이 먼저 보임</span></p></div>
+<div class="row"><p style="font-size:18px;color:var(--mute)">18 Regular 연회색 각주</p><p class="rule">하단 2층: 용어 풀이, 출처. 약어·전문 용어는 처음 나온 장만이 아니라 <b>나오는 장마다</b> 풀이(빌드가 자동 점검·추가)<br><span class="why"><b>왜</b> 필요한 사람만 찾아 읽는 정보. 가장 작고 가장 흐리게. 발표는 장을 건너뛰어 보는 경우가 많음</span></p></div>
+</div></div>
+
+<div class="sec"><h3>색 역할<small>강조색 하나, 의미 색 하나</small></h3><div>
+<div class="row"><p class="rule"><span class="sw" style="background:#191F28"></span>잉크 #191F28</p><p class="rule">제목·본문. 순수 검정 대신 아주 짙은 남색 회색<br><span class="why"><b>왜</b> 흰 바탕과의 대비가 지나치지 않아 화면에서 눈이 덜 피로함</span></p></div>
+<div class="row"><p class="rule"><span class="sw" style="background:#4E5968"></span>회색 #4E5968 · <span class="sw" style="background:#8B95A1;margin-left:8px"></span>연회색 #8B95A1</p><p class="rule">회색 = 부제·설명, 연회색 = 길잡이·각주<br><span class="why"><b>왜</b> 정보의 중요도를 크기뿐 아니라 농도로도 한 번 더 나눔</span></p></div>
+<div class="row"><p class="rule"><span class="sw" style="background:#6500C3"></span>보라 #6500C3</p><p class="rule">유일한 강조색: 핵심 숫자, 판정어, 제안 열 머리, 진행 표시의 현재 단계<br><span class="why"><b>왜</b> 색이 하나뿐이라 청중이 첫 몇 장 만에 보라 = 봐야 할 곳으로 학습</span></p></div>
+<div class="row"><p class="rule"><span class="sw" style="background:#E9CCFF"></span>형광펜 #E9CCFF · <span class="sw" style="background:#F4EDFF;margin-left:8px"></span>연보라 #F4EDFF</p><p class="rule">형광펜 = 제목의 판정어, 연보라 바탕 = 표의 제안 열·콜아웃<br><span class="why"><b>왜</b> 같은 계열의 옅은 색이라 강조하면서도 글자 대비는 유지</span></p></div>
+<div class="row"><p class="rule"><span class="sw" style="background:#D6173A"></span>빨강 #D6173A</p><p class="rule">손실(음수)과 회수 못 함 값에만. 상태 표시·판정·라벨에는 쓰지 않고, 양수에 초록도 쓰지 않음<br><span class="why"><b>왜</b> 의미 있는 색만 남겨 손실 구간이 바로 보이게. 빨강·초록 동시 사용은 색각 이상 청중에게 구분이 어려움</span></p></div>
+</div></div>
+
+<div class="sec"><h3>간격<small>8px 단위</small></h3><div>
+<div class="row"><p class="rule"><b>8의 배수</b> 16 · 24 · 32 · 48</p><p class="rule">표 칸·콜아웃 안쪽 16, 덩어리 사이 32, 화면 여백 좌우 120 · 위 88. 예외는 제목과 부제 사이 12(한 덩어리로 보이게). 하단 설명·각주는 모든 장에서 같은 높이<br><span class="why"><b>왜</b> 간격의 리듬이 일정하면 정돈되어 보이고, 장이 바뀌어도 같은 자리에 같은 요소가 있어 눈이 헤매지 않음</span></p></div>
+<div class="row"><p class="rule"><b>정렬선 하나</b></p><p class="rule">장 이름 · 제목 · 표 첫 열 · 각주의 왼쪽 끝을 모두 120px 선에 맞춤<br><span class="why"><b>왜</b> 왼쪽 선이 하나면 시선이 위에서 아래로 곧게 내려감</span></p></div>
+</div></div>
+
+<div class="sec"><h3>요소 규칙<small>같은 종류는 모든 장에서 같은 모양</small></h3><div>
+<div class="row"><p class="rule"><b>표</b></p><p class="rule">위 2px 검은 선 + 행 사이 1px 연한 선, 바깥 상자·세로선 없음. 머리는 20 연회색, 행 위아래 여백 기본 10(행이 적은 표는 남는 높이를 행 여백으로 나눠 최대 24). 차트와 나란한 표는 행 여백을 조정해 마지막 행을 차트 그림 영역 아래 끝에 맞춤. 첫 열은 정렬선에 붙이고, 색 칸은 글자와 바탕 끝 사이 16 여백. 제안 열은 연보라 바탕 + 보라 머리, 강조 행은 바탕 없이 첫 칸만 보라 굵은 글자, 나머지 잉크 Medium. 회색 글자는 '같음'처럼 반복 표시에만<br><span class="why"><b>왜</b> 모든 표가 같은 문법이면 읽는 법을 한 번만 익히면 됨. 바탕색은 세로(열) 비교에만 써서 의미를 하나로 고정</span></p></div>
+<div class="row"><p class="rule"><b>패널 · 콜아웃</b></p><p class="rule">패널 = 상자 없이 위 2px 선과 여백, 패널 안 하위 블록도 들여쓰기·회색 바탕 없이 1px 선으로 나누고 정렬선 유지. 콜아웃 = 연보라 바탕, 모서리 12, 안쪽 위아래 16·좌우 24, 한 장에 하나. 칩 없이 왼쪽 라벨 열(보라 굵게) + 오른쪽 내용(잉크)<br><span class="why"><b>왜</b> 색 바탕이 한 장에 하나뿐이라, 표 다음에 볼 결론 보조 정보가 저절로 드러남</span></p></div>
+<div class="row"><p class="rule"><b>문체</b></p><p class="rule">제목·부제·표·불릿은 명사형 종결(…보류, …회수, …필요). 발표자 노트만 문장<br><span class="why"><b>왜</b> 슬라이드는 읽는 글이 아니라 보는 글. 어미가 빠지면 글자 수가 줄고 핵심어가 문장 끝에 남음</span></p></div>
+<div class="row"><p class="rule"><b>하단 두 층</b></p><p class="rule">1층 설명 22 회색은 항상 <b>기본 조건:</b> 같은 굵은 라벨로 시작, 2층 각주 18 연회색. 1층이 필요 없는 장은 2층만 같은 위치(바닥에서 52)·같은 형식으로. 라벨과 <b>MVP</b> 같은 용어는 굵게. 줄 바꿈은 항목·문장 사이에서만, 문장 사이 공백은 한 칸. 각주 줄은 모든 장에서 같은 높이<br><span class="why"><b>왜</b> 근거는 항상 같은 자리, 같은 모양이라 찾기 쉽고 본문과 경쟁하지 않음. 굵은 머리어로 훑어 찾기 가능</span></p></div>
+<div class="row"><p class="rule"><b>차트</b></p><p class="rule">가로 격자만 연하게, 축 글자 20 연회색. 비교 계열은 보라 + 진회색 두 색만, 범례 글자는 색 없이. 값 표시는 의미 있는 점(회수 시점, 최저점) 옆 라벨로만. 시간 기준은 제목과 같은 하나(착수 후)로, 가로축 시작점 명시<br><span class="why"><b>왜</b> 청중이 볼 것은 선의 모양과 0을 넘는 지점. 제목의 숫자와 차트의 숫자가 같은 기준이어야 바로 맞춰 봄</span></p></div>
+<div class="row"><p class="rule"><b>진행 표시 起承轉結</b></p><p class="rule">오른쪽 위 22, 현재 단계만 보라 바탕<br><span class="why"><b>왜</b> 44장 중 지금 어느 단계인지 한눈에. 이야기 구조를 계속 상기</span></p></div>
+<div class="row"><p class="rule"><b>상태 칩</b></p><p class="rule">표 안 상태값(미충족·높음·미정·조건부)에만. 테두리형: 부정 상태는 진회색 2px 테두리 + 잉크 굵게, 그 밖은 연회색 테두리 + 회색. 판정어(보류)는 칩 대신 형광펜<br><span class="why"><b>왜</b> 채움 칩이 많으면 색 점이 흩어져 시선을 뺏음. 테두리형은 읽히되 튀지 않고, 판정어는 제목과 같은 형광펜으로 이어 읽힘</span></p></div>
+<div class="row"><p class="rule"><b>단계·구성 막대</b></p><p class="rule">기준 막대 하나만 보라, 나머지는 회색 단계(#4E5968 → #D1D6DB). 흐름 화살표는 연회색. 큰 숫자 강조는 채움 상자 대신 위 2px 선 + 보라 굵은 숫자<br><span class="why"><b>왜</b> 여러 보라 농도는 모두 강조로 읽힘. 기준만 보라여야 비교 대상이 바로 보임</span></p></div>
+</div></div>
+
+</div></body></html>

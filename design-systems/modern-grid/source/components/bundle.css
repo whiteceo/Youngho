@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+/* Modern Grid — 슬라이드 컴포넌트 (1280×720 기준) */
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-sans)}
+.mg-pad{padding:24px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.mg-num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+.mg-accent{color:var(--green-500)}
+.mg-hatch{background:repeating-linear-gradient(-45deg,var(--green-500) 0 2px,var(--green-600) 2px var(--hatch-pitch))}
+.mg-hatch-gray{background:repeating-linear-gradient(-45deg,var(--line-strong) 0 1px,transparent 1px var(--hatch-pitch))}
+
+/* 스테이지: 1280×720 슬라이드를 미리보기 폭에 맞게 축소 */
+.mg-stage{width:640px;height:360px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.mg-stage>.mg-slide{transform:scale(.5);transform-origin:0 0}
+
+/* 슬라이드 프레임 */
+.mg-slide{position:relative;width:1280px;height:720px;background:var(--bg);color:var(--ink);font-family:var(--font-sans);overflow:hidden;box-sizing:border-box;padding:48px var(--slide-margin) calc(var(--footer-h) + 40px)}
+.mg-title{margin:0;font-size:30px;line-height:1.3;font-weight:700;letter-spacing:-.01em;max-width:1100px;text-wrap:balance}
+.mg-title .mg-num{font-weight:700}
+.mg-footer{position:absolute;left:0;right:0;bottom:0;height:var(--footer-h);background:var(--footer);display:flex;align-items:center;padding:0 var(--slide-margin);font-size:12px;color:var(--ink-3)}
+.mg-logo{font-family:var(--font-num);font-weight:700;font-size:18px;letter-spacing:-.01em}
+.mg-logo b{color:var(--green-500);font-weight:700}
+
+/* 아이브로 */
+.mg-eyebrow{display:flex;flex-direction:column;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-500)}
+.mg-eyebrow::before{content:"";width:28px;height:3px;background:repeating-linear-gradient(90deg,var(--green-500) 0 4px,transparent 4px 7px)}
+
+/* 섹션 디바이더 */
+.mg-divider{display:flex;align-items:center;justify-content:center;gap:56px;height:100%}
+.mg-divider__num{font-family:var(--font-num);font-weight:800;font-size:300px;line-height:.8;letter-spacing:-.04em;display:flex;align-items:flex-end}
+.mg-divider__num::after{content:"";width:52px;height:52px;background:var(--yellow-500);margin-left:8px}
+.mg-divider__t{font-size:36px;line-height:1.2;font-weight:700;margin:0}
+.mg-divider__s{font-size:36px;line-height:1.2;font-weight:300;margin:0 0 20px}
+.mg-divider__d{font-size:13px;color:var(--ink-2);max-width:340px;line-height:1.6;margin:0}
+
+/* KPI 히어로 */
+.mg-kpi__label{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green-500)}
+.mg-kpi__label::before{content:"";width:24px;height:3px;background:repeating-linear-gradient(90deg,var(--green-500) 0 4px,transparent 4px 7px)}
+.mg-kpi__value{font-family:var(--font-num);font-size:120px;line-height:1;font-weight:500;letter-spacing:-.03em;color:var(--green-500);display:flex;align-items:baseline;gap:16px;margin:12px 0 40px}
+.mg-kpi__value small{font-size:34px;letter-spacing:0;font-weight:400}
+.mg-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.mg-metric{border-top:1px solid var(--line-strong);padding-top:16px}
+.mg-metric__l{font-size:12px;color:var(--ink-3)}
+.mg-metric__v{font-family:var(--font-num);font-size:44px;font-weight:400;letter-spacing:-.02em;margin-top:8px}
+
+/* 스탯 리스트 */
+.mg-stats{display:flex;flex-direction:column;gap:28px}
+.mg-stat{display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start}
+.mg-stat__icon{width:52px;height:52px;display:grid;place-items:center;border-bottom:var(--accent-bar) solid var(--green-500);box-sizing:border-box;background:repeating-linear-gradient(-45deg,var(--line-strong) 0 1px,var(--surface) 1px var(--hatch-pitch))}
+.mg-stat__icon svg{width:24px;height:24px;fill:var(--ink)}
+.mg-stat__v{font-family:var(--font-num);font-size:44px;line-height:1;letter-spacing:-.02em}
+.mg-stat__v small{font-size:18px;letter-spacing:0;margin-left:6px}
+.mg-stat__d{font-size:12px;color:var(--ink-3);line-height:1.5;margin-top:8px;max-width:260px}
+
+/* 인사이트 카드 */
+.mg-card{background:var(--surface);padding:20px 22px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;position:relative}
+.mg-card--bar::before{content:"";position:absolute;left:0;top:16px;width:var(--accent-bar);height:44px;background:var(--green-500)}
+.mg-card__t{font-size:16px;font-weight:700;line-height:1.35;margin:0}
+.mg-card__b{font-size:13px;line-height:1.6;color:var(--ink-2);margin:0}
+.mg-card__big{font-family:var(--font-num);font-size:34px;color:var(--green-500);letter-spacing:-.02em;line-height:1}
+.mg-card__note{font-size:12px;color:var(--green-500);line-height:1.5;margin:0}
+
+/* 콜아웃 패널 */
+.mg-callout{background:var(--green-panel);padding:22px 24px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px}
+.mg-callout__t{font-size:16px;font-weight:700;line-height:1.4;margin:0}
+.mg-callout ul{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:var(--ink)}
+.mg-callout li::marker{color:var(--green-500)}
+
+/* 탭 라벨(차트 제목) */
+.mg-tab{background:var(--surface-2);font-size:12px;font-weight:500;padding:7px 12px;color:var(--ink)}
+
+/* 프로그레스 */
+.mg-progress{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;font-size:12px;color:var(--ink-2)}
+.mg-progress__track{height:14px;background:var(--line-strong);position:relative}
+.mg-progress__fill{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(-45deg,var(--green-500) 0 2px,var(--green-600) 2px var(--hatch-pitch))}
+
+/* 막대 차트 */
+.mg-bars{display:flex;align-items:flex-end;gap:14px;height:180px;border-bottom:1px solid var(--line-strong);padding:0 8px}
+.mg-bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;font-size:11px;color:var(--ink-3)}
+.mg-bar i{display:block;width:100%;background:var(--gray-500)}
+.mg-bar--a i{background:var(--green-500)}
+.mg-bar--h i{background:repeating-linear-gradient(-45deg,var(--green-500) 0 2px,transparent 2px var(--hatch-pitch));box-shadow:inset 0 0 0 1px var(--green-500)}
+.mg-axis{display:flex;gap:14px;padding:6px 8px 0;font-size:11px;color:var(--ink-3)}
+.mg-axis span{flex:1;text-align:center}
+.mg-legend{display:flex;gap:16px;font-size:11px;color:var(--ink-3)}
+.mg-legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+
+/* 표 */
+.mg-table{border-collapse:collapse;font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.mg-table th{background:var(--surface-2);color:var(--ink);font-weight:700;text-align:right;padding:8px 14px}
+.mg-table th:first-child,.mg-table td:first-child{text-align:left}
+.mg-table td{padding:8px 14px;border-bottom:1px solid var(--line);text-align:right}
+.mg-table .is-hl{background:var(--green-500);color:var(--on-accent-ink);font-weight:700}
+.mg-table tfoot td{color:var(--ink);font-weight:700;border-bottom:0}
+
+/* 2×2 매트릭스 */
+.mg-matrix{display:grid;grid-template-columns:repeat(2,120px);grid-template-rows:repeat(2,96px);gap:10px}
+.mg-matrix div{border:1px solid var(--line-strong);display:grid;place-items:center;text-align:center;font-size:12px;font-weight:500;padding:8px}
+.mg-matrix .is-on{background:var(--green-500);border-color:var(--green-500);color:var(--on-accent-ink);font-weight:700}
+.mg-matrix .is-hatch{background:repeating-linear-gradient(-45deg,var(--line-strong) 0 1px,transparent 1px var(--hatch-pitch))}
+
+/* 프로세스 타임라인 */
+.mg-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+.mg-step{padding:12px 14px;display:flex;flex-direction:column;gap:10px;font-size:12px}
+.mg-step__h{font-weight:700;color:var(--ink)}
+.mg-step__row{display:flex;align-items:center;gap:8px}
+.mg-step__row::after{content:"";flex:1;height:1px;background:var(--line-strong)}
+.mg-step:last-child .mg-step__row::after{display:none}
+.mg-dia{width:13px;height:13px;transform:rotate(45deg);border:2px solid var(--green-500);box-sizing:border-box;flex:none}
+.mg-step--done .mg-dia{background:var(--green-500)}
+.mg-step--now{background:repeating-linear-gradient(-45deg,var(--line) 0 1px,transparent 1px var(--hatch-pitch))}
+.mg-step__d{color:var(--ink-3);line-height:1.5}

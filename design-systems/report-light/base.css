@@ -1,0 +1,62 @@
+/* Report Light — 토큰 변수 + 공통 요소 CSS (1920×1080 슬라이드) */
+:root{
+  --ink:#191F28;
+  --sub:#4E5968;
+  --mute:#8B95A1;
+  --line:#E5E8EB;
+  --bg:#FFFFFF;
+  --surface:#F7F8FA;
+  --accent:#6500C3;
+  --accent-bg:#F4EDFF;
+  --accent-10:#E9CCFF;
+  --neg:#D6173A;
+  --neg-text:#B4002B;
+  --bar-grey:#D1D6DB;
+  --chip-line:#B0B8C1;
+  --dark:#181B28;
+  --dark-2:#242735;
+  --dark-ink:#F7F7F8;
+  --dark-sub:#B4B5BA;
+  --space-1:8px;
+  --space-2:16px;
+  --space-3:24px;
+  --space-4:32px;
+  --space-6:48px;
+  --margin-x:120px;
+  --margin-top:88px;
+  --footer-bottom:52px;
+  --radius-sm:6px;
+  --radius-md:8px;
+  --radius-lg:16px;
+}
+@font-face{font-family:'Spoqa Han Sans Neo';src:url('fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2')}
+@font-face{font-family:'Spoqa Han Sans Neo Medium';src:url('fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2')}
+@font-face{font-family:'Spoqa Han Sans Neo Bold';src:url('fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2')}
+@font-face{font-family:'Noto Serif KR';font-weight:700;src:url('fonts/NotoSerifKR-Bold-hanja.woff2') format('woff2')}
+/* 굵기는 font-weight가 아니라 글꼴 이름으로 바꾼다(artifact 슬라이드 엔진과 같게) */
+.rl-slide{position:relative;width:1920px;height:1080px;background:var(--bg);color:var(--ink);font-family:'Spoqa Han Sans Neo',sans-serif;padding:88px 120px 160px;display:flex;flex-direction:column;gap:32px;box-sizing:border-box;overflow:hidden}
+.rl-r{font-family:'Spoqa Han Sans Neo',sans-serif}.rl-m{font-family:'Spoqa Han Sans Neo Medium',sans-serif}.rl-b{font-family:'Spoqa Han Sans Neo Bold',sans-serif}
+.rl-kicker{font-family:'Spoqa Han Sans Neo Bold',sans-serif;font-size:20px;line-height:1.5;color:var(--accent);margin:0}
+.rl-title{font-family:'Spoqa Han Sans Neo Bold',sans-serif;font-size:52px;line-height:1.3;letter-spacing:-1.5px;margin:0}
+.rl-title .em{color:var(--accent)}
+.rl-sub{font-size:28px;line-height:1.5;letter-spacing:-.3px;color:var(--sub);margin:0}
+.rl-stage{display:flex;gap:2px;align-items:center}
+.rl-stage p{font-family:'Noto Serif KR',serif;font-weight:700;font-size:22px;line-height:1.3;color:var(--chip-line);padding:2px 10px;margin:0}
+.rl-stage p.on{color:#fff;background:var(--accent);border-radius:6px}
+/* 표: 바깥 상자·세로선 없음, 위 2px 선 + 행 1px 선. 열은 px와 fr만(minmax 금지) */
+.rl-table{display:grid;border-top:2px solid var(--ink);column-gap:16px}
+.rl-table>.h{font-family:'Spoqa Han Sans Neo Medium',sans-serif;font-size:20px;color:var(--mute);padding:10px 0}
+.rl-table>.c{font-size:24px;line-height:1.5;border-top:1px solid var(--line);padding:10px 0}
+.rl-table>.c.first{font-family:'Spoqa Han Sans Neo Medium',sans-serif}
+.rl-table>.c.hl{font-family:'Spoqa Han Sans Neo Bold',sans-serif;color:var(--accent)}
+.rl-callout{display:grid;grid-template-columns:150px 1fr;gap:10px 24px;background:var(--accent-bg);border-radius:16px;padding:16px 24px}
+.rl-callout .l{font-family:'Spoqa Han Sans Neo Bold',sans-serif;font-size:24px;color:var(--accent);margin:0}
+.rl-callout .t{font-size:24px;margin:0}
+.rl-panel{border-top:2px solid var(--ink);padding-top:16px;display:flex;flex-direction:column;gap:12px}
+.rl-tag{display:inline-block;font-family:'Spoqa Han Sans Neo Medium',sans-serif;font-size:22px;line-height:1.4;color:var(--sub);border:1.5px solid var(--chip-line);border-radius:8px;padding:2px 12px}
+.rl-tag.strong{font-family:'Spoqa Han Sans Neo Bold',sans-serif;color:var(--ink);border:2px solid var(--sub)}
+.rl-foot{position:absolute;left:120px;right:120px;bottom:52px;display:flex;flex-direction:column;gap:6px}
+.rl-foot .l1{font-size:22px;line-height:1.5;color:var(--sub);display:flex;flex-wrap:wrap;gap:0 6px}
+.rl-foot .l2{font-size:18px;line-height:1.45;color:var(--mute);display:flex;flex-wrap:wrap;gap:2px 22px}
+.rl-foot b{font-family:'Spoqa Han Sans Neo Bold',sans-serif;font-weight:400;color:var(--sub)}
+.rl-neg{color:var(--neg-text)}

@@ -1,0 +1,30 @@
+<!-- @dsCard height=320 -->
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Cover</title>
+<style>
+html,body{margin:0;height:100%}
+.cv{position:relative;width:960px;height:320px;background:var(--bg);overflow:hidden}
+.cv svg{position:absolute;left:0;top:0}
+.green{fill:var(--green-500)} .panel{fill:var(--green-panel)} .yellow{fill:var(--yellow-500)} .gray{fill:var(--line-strong)} .g6{fill:var(--green-600)}
+.sq{rx:var(--radius-none)}
+.name{position:absolute;left:40px;bottom:40px;width:420px}
+.name h1{margin:0;font-family:var(--font-num);font-weight:800;font-size:112px;line-height:.92;letter-spacing:-.04em;color:var(--ink)}
+.name p{margin:12px 0 0;font-family:var(--font-sans);font-size:14px;color:var(--ink-3)}
+</style></head>
+<body><div class="cv">
+<!--
+blocks: green-500 240×200 slab bleeding off the top · green-panel 120×200 · line-strong 120×120 · yellow-500 56×56 square (the section-number dot)
+arrangement: flush modular grid right of x=480, slab bleeds off the top edge like a full-bleed photo column
+pattern: green-500/green-600 45° hatch at hatch-pitch 6px in one 240×120 tile — the template marks forecasts and progress with exactly this hatch
+scales: space-6 24px gaps rounded into the 120px module, radius-none everywhere (a square system)
+-->
+<svg width="960" height="320" viewBox="0 0 960 320" aria-hidden="true">
+<defs><pattern id="h" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect class="g6" width="6" height="6"/><rect class="green" width="2.5" height="6"/></pattern></defs>
+<rect class="panel sq" x="480" y="120" width="120" height="200"/>
+<rect class="green sq" x="600" y="0" width="240" height="200"/>
+<rect class="gray sq" x="840" y="0" width="120" height="120"/>
+<rect class="sq" x="600" y="200" width="240" height="120" fill="url(#h)"/>
+<rect class="yellow sq" x="864" y="224" width="56" height="56"/>
+</svg>
+<div class="name"><h1>Modern<br>Grid</h1><p>다크 차콜 위 라임 그린 하나, 직각 카드와 해치 — 컨설팅 보고서 슬라이드 시스템</p></div>
+</div></body></html>
