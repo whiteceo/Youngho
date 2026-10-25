@@ -11,14 +11,14 @@
 @font-face{font-family:'Spoqa Han Sans Neo';font-weight:700;src:url('fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2')}
 :root{
   --bg:#F6F6F8;--card:#FFFFFF;--ink:#333236;--sub:#5A595D;--mute:#818084;--line:#E3E3E8;--field:#F6F6F8;
-  --vi:#6500C3;--vit:#760DDE;--vibg:#F3E6FD;--cash:#178F98;--casht:#137A82;--neg:#B4002B;--pos:#00693D;--grid:#EDEDF0;--zero:#ADAEB8;
+  --vi:#6500C3;--vit:#760DDE;--vibg:#F3E6FD;--cash:#4E5968;--casht:#4E5968;--neg:#B4002B;--pos:#00693D;--grid:#EDEDF0;--zero:#ADAEB8;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#15161D;--card:#1F2029;--ink:#ECECF1;--sub:#B4B5BA;--mute:#878990;--line:#33354A;--field:#2A2C38;
-  --vi:#B363FD;--vit:#C58BFF;--vibg:#2E2342;--cash:#3CC3CD;--casht:#5FD3DB;--neg:#FF6B7F;--pos:#4ACB8A;--grid:#2C2E3B;--zero:#5D5F6E;color-scheme:dark}}
+  --vi:#B363FD;--vit:#C58BFF;--vibg:#2E2342;--cash:#B0B8C1;--casht:#B0B8C1;--neg:#FF6B7F;--pos:#4ACB8A;--grid:#2C2E3B;--zero:#5D5F6E;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#15161D;--card:#1F2029;--ink:#ECECF1;--sub:#B4B5BA;--mute:#878990;--line:#33354A;--field:#2A2C38;
-  --vi:#B363FD;--vit:#C58BFF;--vibg:#2E2342;--cash:#3CC3CD;--casht:#5FD3DB;--neg:#FF6B7F;--pos:#4ACB8A;--grid:#2C2E3B;--zero:#5D5F6E;color-scheme:dark}
+  --vi:#B363FD;--vit:#C58BFF;--vibg:#2E2342;--cash:#B0B8C1;--casht:#B0B8C1;--neg:#FF6B7F;--pos:#4ACB8A;--grid:#2C2E3B;--zero:#5D5F6E;color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:'Spoqa Han Sans Neo','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;font-size:15px;line-height:1.5;word-break:keep-all;margin:0}
@@ -73,7 +73,7 @@ body.embed header .lead,body.embed .checkcard,body.embed .tablecard{display:none
 body.embed .grid{grid-template-columns:330px minmax(0,1fr);gap:12px}
 body.embed .card{padding:10px 14px}
 body.embed .kpis{gap:12px}
-body.embed .inputs{max-height:calc(100vh - 56px);overflow-y:auto}
+body.embed .inputs{max-height:calc(100vh - 68px);overflow-y:auto}
 body.embed .out{gap:12px}
 body.embed .kpi .kv{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto}
 body.embed .big{font-size:22px}
@@ -120,7 +120,7 @@ if(/[?&]embed/.test(location.search)){document.body.classList.add('embed');
   var nx=k==='PageDown'||(!typing&&(k==='ArrowRight'||k===' ')),pv=k==='PageUp'||(!typing&&k==='ArrowLeft');
   if((nx||pv)&&window.parent!==window){e.preventDefault();window.parent.postMessage({deck:nx?'next':'prev'},'*')}});}
 var DEF={arpuMode:'direct',arpu:80,lite:20,ent:3,pLite:45,pPro:82.5,pEnt:250,N:3,churn:2,var:29,onb:65,
- DEV:775,UX:516,dev_fte:2.0,ux_fte:1.0,internal_rate:0,cut_after:0,cut_to:1100,dev_months:9,pm:360,once_cash:3881,fixed_cash:797.5,margin:10,years:4};
+ DEV:775,UX:516,dev_fte:2.0,ux_fte:1.0,internal_rate:0,cut_after:0,cut_to:1100,dev_months:9,pm:610,once_cash:3881,fixed_cash:797.5,margin:10,years:4};
 var S=JSON.parse(JSON.stringify(DEF));
 var FIELDS=[
  ['가격·고객',[
@@ -141,7 +141,7 @@ var FIELDS=[
   ['cut_to','축소 후 사내 인력 월 비용','만 원',0,2500,10,'예: 1,100(초기 추정 수준)']]],
  ['개발·고정비',[
   ['dev_months','출시까지 개발 기간','개월',6,12,0.5,'3.10, 2.0명분 약 9개월'],
-  ['pm','PM 월 비용(현금)','만 원',320,520,5,'주니어 320~400(기본 360), 경력 475'],
+  ['pm','PM 월 비용(현금)','만 원',450,800,5,'경력 PM 회사 부담 500~730(기본 610)'],
   ['once_cash','출시 전 일회성 현금','만 원',1500,8000,10,'설계 531 + MSP 구축 500 + 법률 300 + 보안 점검 550 + AI 교육 콘텐츠 2,000'],
   ['fixed_cash','월 고정 현금 비용(PM 제외)','만 원',500,1500,2.5,'AWS 150 + MSP 150 + 마케팅 325 + 도구 45 + PC 10 + 보험 17.5 + 야간 대응 100']]],
  ['목표(필요 ARPU 역산)',[
@@ -228,7 +228,7 @@ function run(){
  chart(sI,sC,p.dev_months);ytable(sI,sC)}
 
 // self check against calculator-spec.md section 4
-function check(){var exp={3:[['2년 6개월 · 68곳','7년 1개월','6.92억',87,115],['10개월 · 27곳','2년 10개월','1.28억',54,61]],4:[['1년 9개월 · 69곳','5년 2개월','5.75억',74,95],['8개월 · 30곳','2년 4개월','1.16억',49,54]]};
+function check(){var exp={3:[['2년 9개월 · 73곳','7년 9개월','7.90억',91,122],['1년 · 32곳','3년 3개월','1.75억',58,68]],4:[['1년 11개월 · 74곳','5년 7개월','6.50억',77,100],['9개월 · 33곳','2년 8개월','1.57억',52,59]]};
  var rows=[],allok=true;[3,4].forEach(function(N){[true,false].forEach(function(incl,k){var p=params(DEF,{N:N}),s=sim(p,incl),e=exp[N][k];
   var got=[ym(s.be[0])+' · '+s.be[1]+'곳',ym(s.pay_start),(Math.abs(s.trough)/10000).toFixed(2)+'억',Math.round(arpuMargin(p,incl,0.1)),Math.round(arpuPayback(p,incl,4))];
   var ok=got.every(function(g,i){return String(g)===String(e[i])});allok=allok&&ok;
