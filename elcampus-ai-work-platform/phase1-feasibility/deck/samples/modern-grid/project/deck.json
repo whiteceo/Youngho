@@ -1,0 +1,49 @@
+{
+ "v": 4,
+ "attachments": {},
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-26T03:40:00Z"
+ },
+ "designSystems": [
+  {
+   "title": "Modern Grid",
+   "namespace": "modern-grid",
+   "artifact": "https://claude.ai/artifact/TqPfh68Pp2TNH7djDWV8Hy",
+   "version": null,
+   "copiedAt": "2026-10-26T03:40:00Z"
+  }
+ ],
+ "faces": {
+  "spoqa-han-sans-neo": {
+   "family": "Spoqa Han Sans Neo",
+   "src": "/_blob/aa72a129808c2d437a1675dce9a1d311"
+  },
+  "spoqa-han-sans-neo-bold": {
+   "family": "Spoqa Han Sans Neo Bold",
+   "src": "/_blob/8da367b2e8b3684c7ac9b293b51310b1"
+  },
+  "noto-serif-kr": {
+   "family": "Noto Serif KR",
+   "href": "https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap"
+  },
+  "inter-tight": {
+   "family": "Inter Tight",
+   "href": "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700&display=swap"
+  }
+ },
+ "lists": "css",
+ "order": [
+  "summary",
+  "pnl",
+  "decision"
+ ],
+ "sections": {
+  "s0": {
+   "description": "Modern Grid 디자인 샘플(원 덱 02·21·34장)",
+   "start": "summary"
+  }
+ },
+ "title": "Modern Grid 샘플: AI 업무 플랫폼 타당성 검토",
+ "cover": "summary"
+}
